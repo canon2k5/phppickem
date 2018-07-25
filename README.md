@@ -23,3 +23,6 @@ Log in for the first time with admin / admin123.  You may change your password o
 
 ## Notes
 I am not the author of this, I have enjoyed using this with family for the past few years, and have managed to use the same version for the past few years.  Basically, I have hacked at it to keep it going.  There may be issues, that you encounter.  If so, you should probably use the latest "official" release.  You may want to use the 2018 football season sql file found in the docs folder.
+
+## Warranty
+None or implied.  Use at your own risk.  This is here for a placeholder for me to access my notes.
