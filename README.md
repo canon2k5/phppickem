@@ -1,4 +1,4 @@
-# PHP Pick 'Em (includes 2018 Schedule)
+# PHP Pick 'Em (includes 2024 Schedule)
 
 PHP Pick 'Em is a free php web application that allows you to host a weekly NFL pick 'em football pool on your website.
 
