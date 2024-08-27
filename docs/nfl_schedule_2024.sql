@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `nflp_schedule` (
   KEY `VisitorID` (`visitorID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=273;
 
-INSERT INTO `nflp_schedule` (`gameID`, `weekNum`, `gameTimeEastern`, `homeID`, `homeScore`, `visitorID`, `visitorScore`, `ove                                                                                                                        rtime`) VALUES
+INSERT INTO `nflp_schedule` (`gameID`, `weekNum`, `gameTimeEastern`, `homeID`, `homeScore`, `visitorID`, `visitorScore`, `overtime`) VALUES
 (1, 1, '2024-09-06 00:20:00', 'KC', NULL,'BAL', NULL, 0),
 (2, 1, '2024-09-07 00:15:00', 'PHI', NULL,'GB', NULL, 0),
 (3, 1, '2024-09-08 17:00:00', 'ATL', NULL,'PIT', NULL, 0),
