@@ -1,0 +1,6 @@
+# Block all public access to the install directory.
+# Delete this entire directory after installation is complete.
+Order deny,allow
+Deny from all
+Allow from 127.0.0.1
+Allow from ::1

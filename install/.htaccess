@@ -1,0 +1,4 @@
+# Don’t show directory listings, but still serve index if present
+Options -Indexes
+DirectoryIndex index.php index.html index.htm
+

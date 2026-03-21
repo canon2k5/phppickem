@@ -1,0 +1,32 @@
+# Claude Code session data
+.claude/
+
+# Composer dependencies (install via: composer install --no-dev)
+/vendor/
+
+# Install lock file (written by installer after setup completes)
+install/install.lock
+
+# Archived legacy scripts (not part of the distribution)
+docs/*.gz
+
+# Credentials — should live outside web root, but ignore if accidentally placed here
+env.php
+/home/secure/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# PHP error logs
+*.log
+error_log
+php_errors.log

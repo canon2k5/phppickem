@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIT License — PHP Pick 'Em</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/site.css?v=20">
+  <script>
+    (function () {
+      var key = 'phppickem-theme';
+      var match = document.cookie.match('(^|;)\\s*' + key + '\\s*=\\s*([^;]+)');
+      var theme = match ? decodeURIComponent(match.pop()) : null;
+      if (!theme) theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+</head>
+<body class="page-license">
+
+<div class="container py-5" style="max-width:720px">
+
+  <div class="mb-4 d-flex align-items-center justify-content-between">
+    <a href="./" class="btn btn-sm btn-outline-secondary">
+      <i class="fa-solid fa-arrow-left me-1"></i>Back
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="card-header card-header-accent">
+      <i class="fa-solid fa-scale-balanced me-2"></i>MIT License
+    </div>
+    <div class="card-body">
+
+      <p class="text-muted mb-4">PHP Pick 'Em is free, open-source software released under the MIT License.</p>
+
+      <!-- Copyright holders -->
+      <div class="d-flex flex-column gap-2 mb-4">
+        <div class="d-flex align-items-center gap-3 p-3 rounded" style="background:var(--panel-2);border:1px solid var(--border)">
+          <i class="fa-solid fa-copyright fa-lg" style="color:var(--accent)"></i>
+          <div>
+            <div class="fw-semibold">Kevin Roth</div>
+            <div class="text-muted" style="font-size:.82rem">Original author &mdash; Copyright &copy; 2013</div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center gap-3 p-3 rounded" style="background:var(--panel-2);border:1px solid var(--border)">
+          <i class="fa-solid fa-copyright fa-lg" style="color:var(--accent)"></i>
+          <div>
+            <div class="fw-semibold">Paul Combs</div>
+            <div class="text-muted" style="font-size:.82rem">Current maintainer &mdash; Copyright &copy; 2025</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- License text -->
+      <div class="p-3 rounded" style="background:var(--panel-2);border:1px solid var(--border);font-size:.875rem;line-height:1.7">
+        <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &ldquo;Software&rdquo;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+        <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+        <p class="mb-0 fw-semibold" style="font-size:.8rem;letter-spacing:.02em">THE SOFTWARE IS PROVIDED &ldquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+# ============================================================
+# PHP Pick 'Em — Apache Configuration
+# ============================================================
+
+Options -Indexes
+
+# ============================================================
+# Security Headers
+# ============================================================
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    # Uncomment and adjust CSP once you know all your CDN sources:
+    # Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net cdnjs.cloudflare.com fonts.googleapis.com; style-src 'self' 'unsafe-inline' cdn.jsdelivr.net cdnjs.cloudflare.com fonts.googleapis.com fonts.gstatic.com; font-src fonts.gstatic.com cdnjs.cloudflare.com; img-src 'self' data: www.paypalobjects.com;"
+</IfModule>
+
+# ============================================================
+# Protect sensitive files from direct access
+# ============================================================
+<FilesMatch "\.(sql|log|sh|env|md|json|lock|dist|gitignore|gitattributes)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<Files "composer.json">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "composer.lock">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# ============================================================
+# Protect the vendor directory
+# ============================================================
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block access to vendor directory
+    RewriteRule ^vendor/ - [F,L]
+
+    # Block access to install directory once tables exist
+    # (comment out during first-time setup)
+    # RewriteRule ^install\.1/ - [F,L]
+
+    # Optional: Force HTTPS (uncomment when SSL is configured)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ============================================================
+# PHP settings (if using mod_php)
+# ============================================================
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_value session.cookie_httponly 1
+    php_value session.cookie_samesite Lax
+    php_value session.use_strict_mode 1
+</IfModule>
