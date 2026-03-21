@@ -147,9 +147,9 @@ Create `/etc/httpd/conf.d/phppickem.conf`:
 ```
 <VirtualHost *:80>
     ServerName nfl.example.com
-    DocumentRoot /var/www/html/nfl.megocollector.com
+    DocumentRoot /var/www/html/nfl.example.com
 
-    <Directory /var/www/html/nfl.megocollector.com>
+    <Directory /var/www/html/nfl.example.com>
         AllowOverride All
         Require all granted
         DirectoryIndex index.php index.html
