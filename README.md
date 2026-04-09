@@ -5,7 +5,7 @@ It handles picks, scoring, standings, and automated email notifications for self
 
 This version is a **ground‑up 2025+ rewrite** of Kevin Roth’s original 2013 PHP Pick ’Em, updated for:
 
-- PHP 8.x (tested on 8.1–8.3) with Composer
+- PHP 8.x (tested on 8.3) with Composer
 - MariaDB/MySQL using InnoDB and `utf8mb4`
 - Modern security practices (bcrypt passwords, prepared statements, CSRF protection, hardened sessions)
 - API‑driven schedules and scores instead of HTML/XML scraping
@@ -19,7 +19,7 @@ This version is a **ground‑up 2025+ rewrite** of Kevin Roth’s original 2013 
 ## Requirements
 
 - Apache 2.4+ or Nginx
-- PHP 7.4+ with `mysqli`, `openssl`, `mbstring` extensions
+- PHP 8.3+ with `mysqli`, `openssl`, `mbstring` extensions
 - MariaDB 10.x or MySQL 5.7+
 - Composer
 
