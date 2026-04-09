@@ -1,9 +1,18 @@
 # PHP Pick 'Em (NFL Pool)
 
-PHP Pick 'Em is a free, open-source web application for running a weekly NFL pick 'em pool.
-Built on PHP + MariaDB, it handles picks, scoring, standings, and automated email notifications.
+PHP Pick 'Em is a free, open‑source web application for running a weekly NFL pick ’em pool.  
+It handles picks, scoring, standings, and automated email notifications for self‑hosted leagues.
 
-> Original author: Kevin Roth (2013). Modernized and actively maintained by Paul Combs (2025).
+This version is a **ground‑up 2025+ rewrite** of Kevin Roth’s original 2013 PHP Pick ’Em, updated for:
+
+- PHP 8.x (tested on 8.1–8.3) with Composer
+- MariaDB/MySQL using InnoDB and `utf8mb4`
+- Modern security practices (bcrypt passwords, prepared statements, CSRF protection, hardened sessions)
+- API‑driven schedules and scores instead of HTML/XML scraping
+- A Bootstrap 5 frontend with dark mode and a streamlined admin experience
+
+> Original author: Kevin Roth (2013)  
+> Modern rewrite and current maintainer: Paul Combs (2025–2026)
 
 ---
 
