@@ -17,7 +17,7 @@ $error_message = '';
 // Process form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email_template_key = isset($_POST['email_template_key']) ? 
-        filter_var($_POST['email_template_key'], FILTER_SANITIZE_STRING) : '';
+        trim($_POST['email_template_key']) : '';
 
     if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
         $error_message = 'Invalid CSRF token. Please refresh the page and try again.';
