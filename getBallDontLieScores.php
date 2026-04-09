@@ -10,6 +10,12 @@ require('includes/application_top.php');
  * SAFETY CHECKS
  ************************/
 
+if (!$user->is_admin) {
+    http_response_code(403);
+    echo json_encode(['error' => 'Forbidden']);
+    exit;
+}
+
 if (!defined('BALLDONTLIE_API_ENABLED') || !BALLDONTLIE_API_ENABLED) {
     echo json_encode(['error' => 'BallDontLie API disabled']);
     exit;
