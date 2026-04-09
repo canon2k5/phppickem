@@ -1,12 +1,12 @@
 <?php
 class Login {
-    function Login() {
+    public function __construct() {
         // Constructor (if needed)
     }
 
-    function validate_password() {
+    public function validate_password() {
         $user_name = $this->no_injections($_POST['username']);
-        $password  = $this->no_injections($_POST['password']);
+        $password  = $_POST['password'];  // never modify before password_verify()
         $user = $this->get_user($user_name);
         // Use password_verify to check the password against the stored hash
         if (!empty($user) && !empty($password) && password_verify($password, $user->password)) {
@@ -23,7 +23,7 @@ class Login {
         }
     }
 
-    function get_user($user_name) {
+    public function get_user($user_name) {
         global $mysqli;
         $stmt = $mysqli->prepare("SELECT * FROM " . DB_PREFIX . "users WHERE userName = ? AND status = 1");
         if (!$stmt) {
@@ -52,13 +52,13 @@ public function get_user_by_id($user_id) {
 }
 
 
-    function no_injections($input) {
+    public function no_injections($input) {
         $injections = array('/(\n+)/i','/(\r+)/i','/(\t+)/i','/(%0A+)/i','/(%0D+)/i','/(%08+)/i','/(%09+)/i');
         $input = preg_replace($injections, '', $input);
         return trim($input);
     }
 
-    function logout() {
+    public function logout() {
         $_SESSION = array();
     }
 }
