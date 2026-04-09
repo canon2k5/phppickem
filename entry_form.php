@@ -30,7 +30,11 @@ if (isset($_POST['action']) && $_POST['action'] === 'Submit') {
                     COALESCE((SELECT tieBreakerPoints FROM 
                         (SELECT * FROM " . DB_PREFIX . "picksummary) AS ps 
                         WHERE weekNum = {$submitWeek} AND userID = {$user->userID}), 0))";
-    $mysqli->query($sql) or die('Error updating picks summary: ' . $mysqli->error);
+    if (!$mysqli->query($sql)) {
+        error_log('Pick summary update failed: ' . $mysqli->error);
+        header("Location: entry_form.php?week={$submitWeek}&error=1");
+        exit;
+    }
 
     // Get all games for the submitted week that haven't expired
     $sql = "SELECT gameID FROM " . DB_PREFIX . "schedule
