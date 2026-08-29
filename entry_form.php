@@ -24,26 +24,22 @@ if (isset($_POST['action']) && $_POST['action'] === 'Submit') {
     }
     // Update pick summary
     $showPicks = (int)($_POST['showPicks'] ?? 0);
-    $sql = "REPLACE INTO " . DB_PREFIX . "picksummary 
-            (weekNum, userID, showPicks, tieBreakerPoints) 
-            VALUES ({$submitWeek}, {$user->userID}, {$showPicks}, 
-                    COALESCE((SELECT tieBreakerPoints FROM 
-                        (SELECT * FROM " . DB_PREFIX . "picksummary) AS ps 
+    $sql = "REPLACE INTO " . DB_PREFIX . "picksummary
+            (weekNum, userID, showPicks, tieBreakerPoints)
+            VALUES ({$submitWeek}, {$user->userID}, {$showPicks},
+                    COALESCE((SELECT tieBreakerPoints FROM
+                        (SELECT * FROM " . DB_PREFIX . "picksummary) AS ps
                         WHERE weekNum = {$submitWeek} AND userID = {$user->userID}), 0))";
-    if (!$mysqli->query($sql)) {
-        error_log('Pick summary update failed: ' . $mysqli->error);
-        header("Location: entry_form.php?week={$submitWeek}&error=1");
-        exit;
-    }
+    $mysqli->query($sql) or die('Error updating picks summary: ' . $mysqli->error);
 
     // Get all games for the submitted week that haven't expired
-    $sql = "SELECT gameID FROM " . DB_PREFIX . "schedule
+    $sql = "SELECT gameID, homeID, visitorID FROM " . DB_PREFIX . "schedule
             WHERE weekNum = {$submitWeek}
             AND (DATE_ADD(NOW(), INTERVAL " . SERVER_TIMEZONE_OFFSET . " HOUR) < gameTimeEastern
             AND DATE_ADD(NOW(), INTERVAL " . SERVER_TIMEZONE_OFFSET . " HOUR) < '{$cutoffDateTime}')";
 
     $query = $mysqli->query($sql);
-    
+
     if ($query && $query->num_rows > 0) {
         $stmt_delete = $mysqli->prepare("DELETE FROM " . DB_PREFIX . "picks WHERE userID = ? AND gameID = ?");
         $stmt_insert = $mysqli->prepare("INSERT INTO " . DB_PREFIX . "picks (userID, gameID, pickID, points) VALUES (?, ?, ?, 1)");
@@ -51,11 +47,14 @@ if (isset($_POST['action']) && $_POST['action'] === 'Submit') {
         try {
             while ($row = $query->fetch_assoc()) {
                 $gameID     = (int)$row['gameID'];
-                $pickedTeam = isset($_POST['game' . $gameID]) ? (int)$_POST['game' . $gameID] : null;
-                if (!empty($pickedTeam)) {
-                    $stmt_delete->bind_param("ii", $user->userID, $gameID);
+                $submittedPick = $_POST['game' . $gameID] ?? null;
+                $pickedTeam = is_string($submittedPick) ? trim($submittedPick) : null;
+
+                // Only accept one of the teams actually scheduled for this game.
+                if ($pickedTeam === $row['homeID'] || $pickedTeam === $row['visitorID']) {
+                    $stmt_delete->bind_param("ii", $userID, $gameID);
                     $stmt_delete->execute();
-                    $stmt_insert->bind_param("iii", $user->userID, $gameID, $pickedTeam);
+                    $stmt_insert->bind_param("iis", $userID, $gameID, $pickedTeam);
                     $stmt_insert->execute();
                 }
             }
