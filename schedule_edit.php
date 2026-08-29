@@ -18,8 +18,8 @@ switch ($action) {
         $gameID = (int)$_POST['gameID'];
         $week = (int)$_POST['weekNum'];
         $gameTimeEastern = date('Y-m-d G:i:00', strtotime($_POST['gameTimeEastern'] . ' ' . $_POST['gameTimeEastern2']));
-        $homeID = (int)$_POST['homeID'];
-        $visitorID = (int)$_POST['visitorID'];
+        $homeID = isset($_POST['homeID']) && is_string($_POST['homeID']) ? trim($_POST['homeID']) : '';
+        $visitorID = isset($_POST['visitorID']) && is_string($_POST['visitorID']) ? trim($_POST['visitorID']) : '';
 
         if (empty($homeID) || empty($visitorID)) {
             die('<div class="alert alert-danger">Error: Missing home or visiting team.</div>');
@@ -32,7 +32,7 @@ switch ($action) {
         if ($query->num_rows > 0) {
             $row = $query->fetch_assoc();
             if (date('U') < strtotime($row['gameTimeEastern'])) {
-                if ($week !== $row['weekNum'] || $homeID !== $row['homeID'] || $visitorID !== $row['visitorID']) {
+                if ($week !== (int)$row['weekNum'] || $homeID !== $row['homeID'] || $visitorID !== $row['visitorID']) {
                     $stmt_delete = $mysqli->prepare("DELETE FROM " . DB_PREFIX . "picks WHERE gameID = ?");
                     $stmt_delete->bind_param("i", $gameID);
                     $stmt_delete->execute();
@@ -48,7 +48,7 @@ switch ($action) {
         $stmt_update = $mysqli->prepare("UPDATE " . DB_PREFIX . "schedule
                 SET weekNum = ?, gameTimeEastern = ?, homeID = ?, visitorID = ?
                 WHERE gameID = ?");
-        $stmt_update->bind_param("isiii", $week, $gameTimeEastern, $homeID, $visitorID, $gameID);
+        $stmt_update->bind_param("isssi", $week, $gameTimeEastern, $homeID, $visitorID, $gameID);
         $stmt_update->execute();
         $stmt_update->close();
 
@@ -63,8 +63,8 @@ switch ($action) {
         // Process adding a new game
         $week = (int)$_POST['weekNum'];
         $gameTimeEastern = date('Y-m-d G:i:00', strtotime($_POST['gameTimeEastern'] . ' ' . $_POST['gameTimeEastern2']));
-        $homeID = (int)$_POST['homeID'];
-        $visitorID = (int)$_POST['visitorID'];
+        $homeID = isset($_POST['homeID']) && is_string($_POST['homeID']) ? trim($_POST['homeID']) : '';
+        $visitorID = isset($_POST['visitorID']) && is_string($_POST['visitorID']) ? trim($_POST['visitorID']) : '';
 
         if (empty($homeID) || empty($visitorID)) {
             die('<div class="alert alert-danger">Error: Missing home or visiting team.</div>');
@@ -75,7 +75,7 @@ switch ($action) {
         if (!$stmt_insert) {
             die('<div class="alert alert-danger">Error adding game: ' . htmlspecialchars($mysqli->error) . '</div>');
         }
-        $stmt_insert->bind_param("isii", $week, $gameTimeEastern, $homeID, $visitorID);
+        $stmt_insert->bind_param("isss", $week, $gameTimeEastern, $homeID, $visitorID);
         $stmt_insert->execute();
         $stmt_insert->close();
 
