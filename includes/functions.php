@@ -106,7 +106,7 @@ function getGameIDByTeamName($week, $teamName) {
 function getGameIDByTeamID($week, $teamID) {
     global $mysqli;
     $week   = (int)$week;
-    $teamID = (int)$teamID;
+    $teamID = trim((string)$teamID);
     $sql = "SELECT gameID
             FROM " . DB_PREFIX . "schedule s
             INNER JOIN " . DB_PREFIX . "teams t1 ON s.homeID = t1.teamID
@@ -115,7 +115,7 @@ function getGameIDByTeamID($week, $teamID) {
               AND (t1.teamID = ? OR t2.teamID = ?)";
     $stmt = $mysqli->prepare($sql);
     if (!$stmt) return false;
-    $stmt->bind_param('iii', $week, $teamID, $teamID);
+    $stmt->bind_param('iss', $week, $teamID, $teamID);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
